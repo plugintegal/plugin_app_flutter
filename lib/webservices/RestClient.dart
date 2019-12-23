@@ -19,5 +19,6 @@ class RestClient {
 
   static const login = BASE_URL+"api/login";
   static const all_user = BASE_URL+"api/users";
+  static const get_user = BASE_URL+"api/user/";
 
 }

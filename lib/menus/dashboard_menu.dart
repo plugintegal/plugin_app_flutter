@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plugin_app_flutter/contracts/dashboard_contract.dart';
 import 'package:plugin_app_flutter/models/user.dart';
+import 'package:plugin_app_flutter/pages/person_page.dart';
 import 'package:plugin_app_flutter/presenters/dashboard_presenter.dart';
 import 'package:toast/toast.dart';
 
@@ -11,17 +12,18 @@ class DashboardMenu extends StatefulWidget {
 
 class _DashboardMenuState extends State<DashboardMenu> implements DashboardView {
   DashboardPresenter _presenter;
-
+  Future<List<User>> _users;
   @override
   void initState() {
     super.initState();
     _presenter = DashboardPresenter(this);
+    _users =_presenter.fetchAllUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _presenter.fetchAllUser(),
+      future: _users,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -47,7 +49,9 @@ class _DashboardMenuState extends State<DashboardMenu> implements DashboardView 
         children: List.generate(users.length, (index) {
           return GestureDetector(
               onTap: () {
-                this.toast(users[index].memberId);
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) =>PersonPage(person: users[index])
+                ));
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -113,5 +117,11 @@ class _DashboardMenuState extends State<DashboardMenu> implements DashboardView 
                     )),
               ));
         }));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _presenter?.detach();
   }
 }

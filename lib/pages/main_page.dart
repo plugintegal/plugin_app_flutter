@@ -19,6 +19,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> implements MainView{
   MainPresenter _presenter;
   int _selectedBottomNavIndex = 0;
+  PageStorageBucket bucket = PageStorageBucket();
+  List<Widget> menus;
+
 
   Future<bool> _isNotLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -40,6 +43,10 @@ class _MainPageState extends State<MainPage> implements MainView{
       return;
     });
     _presenter = MainPresenter(this);
+    menus = [
+    DashboardMenu(),
+    EventMenu()
+  ];
   }
 
   @override
@@ -71,7 +78,6 @@ class _MainPageState extends State<MainPage> implements MainView{
                             CupertinoActionSheetAction(
                               child: Text("Profil"),
                               onPressed: (){
-                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                               },
                             ),
@@ -93,23 +99,9 @@ class _MainPageState extends State<MainPage> implements MainView{
             SliverToBoxAdapter(
               child: Container(
                 margin: EdgeInsets.only(top: 16.0),
-                child: Stack(
-                  children: <Widget>[
-                    Offstage(
-                      offstage: _selectedBottomNavIndex != 0,
-                      child: TickerMode(
-                        enabled: _selectedBottomNavIndex == 0,
-                        child: DashboardMenu(),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedBottomNavIndex != 1,
-                      child: TickerMode(
-                        enabled: _selectedBottomNavIndex == 1,
-                        child: EventMenu(),
-                      ),
-                    )
-                  ],
+                child: PageStorage(
+                  child: menus[_selectedBottomNavIndex],
+                  bucket: bucket,
                 )
               ),
             )
