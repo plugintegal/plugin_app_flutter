@@ -10,6 +10,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        brightness: Brightness.dark,
+        accentColor: Colors.deepOrangeAccent
       ),
       home: MainPage(),
     );

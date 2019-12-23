@@ -63,11 +63,12 @@ class _MainPageState extends State<MainPage> implements MainView{
                 ),
                 trailing: GestureDetector(
                   child: CircleAvatar(
-                    child: Text("P"),
+                    backgroundColor: Colors.deepOrangeAccent,
+                    child: Text("P", style: TextStyle(color: Colors.white),),
                   ),
                   onTap: (){
                     showCupertinoModalPopup(
-                        context: context,
+                        context: context,                        
                         builder: (BuildContext context) => CupertinoActionSheet(
                           title: Text("Opsi"),
                           cancelButton: CupertinoActionSheetAction(
@@ -78,7 +79,14 @@ class _MainPageState extends State<MainPage> implements MainView{
                             CupertinoActionSheetAction(
                               child: Text("Profil"),
                               onPressed: (){
+                                Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                              },
+                            ),
+                            CupertinoActionSheetAction(
+                              child: Text("Pengaturan"),
+                              onPressed: (){
+                                Navigator.pop(context);
                               },
                             ),
                             CupertinoActionSheetAction(

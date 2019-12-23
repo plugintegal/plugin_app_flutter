@@ -11,6 +11,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        brightness: Brightness.dark,
+        accentColor: Colors.deepOrangeAccent
       ),
       home: DefaultTabController(
         length: 2,

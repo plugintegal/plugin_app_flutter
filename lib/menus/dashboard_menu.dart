@@ -30,6 +30,7 @@ class _DashboardMenuState extends State<DashboardMenu> implements DashboardView 
             return Center(child: CircularProgressIndicator());
           default:
             if (snapshot.hasError) {
+              toast(snapshot.error.toString());
               return Text("Error");
             } else {
               return userAdapter(context, snapshot);
@@ -69,7 +70,7 @@ class _DashboardMenuState extends State<DashboardMenu> implements DashboardView 
                             padding: EdgeInsets.symmetric(horizontal: 8.0),
                             child: CircleAvatar(
                               radius: 25.0,
-                              child: Text("P"),
+                              backgroundImage: NetworkImage("https://ih1.redbubble.net/image.526556262.0001/flat,1000x1000,075,f.u1.jpg"),
                             ),
                           ),
                           Expanded(
