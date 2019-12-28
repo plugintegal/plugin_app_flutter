@@ -14,10 +14,17 @@ class UserLoadingState extends UserState{
 }
 
 class UserLoadedState extends UserState{
-  List<User> users;
+  final List<User> users;
   UserLoadedState({@required this.users});
   @override
   List<Object> get props => [users];
+}
+
+class UserSingleLoadedState extends UserState {
+  final User user;
+  UserSingleLoadedState({@required this.user});
+  @override
+  List<Object> get props => [user];
 }
 
 class UserErrorState extends UserState{

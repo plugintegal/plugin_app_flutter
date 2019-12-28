@@ -35,7 +35,7 @@ class _DashboardMenuState extends State<DashboardMenu>{
           }
         },
         child: BlocBuilder<UserBloc, UserState>(
-        builder: (context, state){
+        builder: (_, state){
           if(state is UserInitState){
             return _showLoading();
           }else if (state is UserLoadingState){

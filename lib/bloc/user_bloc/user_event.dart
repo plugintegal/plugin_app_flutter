@@ -6,3 +6,8 @@ class FetchAllUserEvent implements UserEvent{
   @override
   List<Object> get props => null;
 }
+
+class FetchMyProfile implements UserEvent {
+  @override
+  List<Object> get props => null;
+}
