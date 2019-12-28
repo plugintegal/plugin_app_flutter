@@ -1,6 +1,8 @@
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plugin_app_flutter/bloc/user_bloc/user_bloc.dart';
 import 'package:plugin_app_flutter/contracts/main_contract.dart';
 import 'package:plugin_app_flutter/pages/profile_page.dart';
 import 'package:plugin_app_flutter/presenters/main_presenter.dart';
@@ -51,23 +53,19 @@ class _MainPageState extends State<MainPage> implements MainView{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider<UserBloc>(
+      create: (context) => UserBloc(),
+      child: Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top:16.0),
         child: CustomScrollView(
           slivers: <Widget>[
             SliverFloatingBar(
                 floating: true,
-                title: TextField(
-                  decoration: InputDecoration.collapsed(hintText: "Search"),
-                ),
-                trailing: GestureDetector(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.deepOrangeAccent,
-                    child: Text("P", style: TextStyle(color: Colors.white),),
-                  ),
-                  onTap: (){
-                    showCupertinoModalPopup(
+                leading: IconButton(
+                  icon: Icon(Icons.dehaze),
+                  onPressed: (){
+                                        showCupertinoModalPopup(
                         context: context,                        
                         builder: (BuildContext context) => CupertinoActionSheet(
                           title: Text("Opsi"),
@@ -76,13 +74,6 @@ class _MainPageState extends State<MainPage> implements MainView{
                             onPressed: () => Navigator.pop(context),
                           ),
                           actions: <Widget>[
-                            CupertinoActionSheetAction(
-                              child: Text("Profil"),
-                              onPressed: (){
-                                Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-                              },
-                            ),
                             CupertinoActionSheetAction(
                               child: Text("Pengaturan"),
                               onPressed: (){
@@ -101,9 +92,23 @@ class _MainPageState extends State<MainPage> implements MainView{
                           ],
                         )
                     );
+                  
+                  },
+                ),
+                title: TextField(
+                  decoration: InputDecoration.collapsed(hintText: "Search"),
+                ),
+                trailing: GestureDetector(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.deepOrangeAccent,
+                    child: Text("P", style: TextStyle(color: Colors.white),),
+                  ),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                   },
                 )
             ),
+
             SliverToBoxAdapter(
               child: Container(
                 margin: EdgeInsets.only(top: 16.0),
@@ -119,11 +124,11 @@ class _MainPageState extends State<MainPage> implements MainView{
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            title: Text("Dashboard")
+            icon: Icon(Icons.group_work),
+            title: Text("Members")
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
+              icon: Icon(Icons.event_note),
               title: Text("Events")
           ),
         ],
@@ -133,6 +138,7 @@ class _MainPageState extends State<MainPage> implements MainView{
             _selectedBottomNavIndex = i;
           });
         },
+      ),
       ),
     );
   }

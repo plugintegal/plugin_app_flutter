@@ -24,14 +24,14 @@ class _PersonPageState extends State<PersonPage> implements PersonView{
     _presenter = PersonPresenter(this);
     _scrollController = ScrollController();
     _scrollController.addListener((){
-      if (_scrollController.offset > 220 && !_scrollController.position.outOfRange) {
+      if (_scrollController.offset > 224 && !_scrollController.position.outOfRange) {
           if(!_isCollapsed){
             _title = this.widget.person.name;
             _isCollapsed = true;
             setState(() {});
           }
        }
-       if (_scrollController.offset <= 220 && !_scrollController.position.outOfRange) {
+       if (_scrollController.offset <= 224 && !_scrollController.position.outOfRange) {
          if(_isCollapsed){
             _title = "";
             _isCollapsed = false;
@@ -83,13 +83,377 @@ class _PersonPageState extends State<PersonPage> implements PersonView{
               ),
             )
           ),
-          SliverFillRemaining(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Text("AAA")
-                ],
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
               ),
+
+              Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+
+              Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            Card(
+                child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("BIO", style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(this.widget.person.name),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            
+            
+            
+            ]
             ),
           )
         ],

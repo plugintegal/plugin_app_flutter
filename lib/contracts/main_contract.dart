@@ -1,7 +1,7 @@
-class MainInteractor {
-  void detach(){}
+abstract class MainInteractor {
+  void detach();
 }
 
-class MainView {
-  void toast(String message){}
+abstract class MainView {
+  void toast(String message);
 }
