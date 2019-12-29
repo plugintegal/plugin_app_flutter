@@ -1,15 +1,11 @@
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plugin_app_flutter/bloc/user_bloc/user_bloc.dart';
 import 'package:plugin_app_flutter/pages/profile_page.dart';
-import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:plugin_app_flutter/pages/login_page.dart';
 import 'package:plugin_app_flutter/menus/dashboard_menu.dart';
 import 'package:plugin_app_flutter/menus/event_menu.dart';
-
 
 class MainPage extends StatefulWidget {
   @override
@@ -49,9 +45,7 @@ class _MainPageState extends State<MainPage>{
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserBloc>(
-      create: (context) => UserBloc(),
-      child: Scaffold(
+    return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top:16.0),
         child: CustomScrollView(
@@ -61,7 +55,7 @@ class _MainPageState extends State<MainPage>{
                 leading: IconButton(
                   icon: Icon(Icons.dehaze),
                   onPressed: (){
-                                        showCupertinoModalPopup(
+                      showCupertinoModalPopup(
                         context: context,                        
                         builder: (BuildContext context) => CupertinoActionSheet(
                           title: Text("Opsi"),
@@ -135,12 +129,6 @@ class _MainPageState extends State<MainPage>{
           });
         },
       ),
-      ),
-    );
+      );
   }
-
-
-  void toast(String message) => Toast.show(message, context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
-
-
 }

@@ -9,7 +9,7 @@ class ProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     userBloc.add(FetchMyProfile());
-    return BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+    return BlocBuilder<UserBloc, UserState>(builder: (_, state) {
       if (state is UserInitState) {
         return Center(
           child: CircularProgressIndicator(),
@@ -183,7 +183,7 @@ class ProfileMenu extends StatelessWidget {
         );
       } else if (state is UserErrorState) {
         return Center(
-          child: Text("Error view"),
+          child: Text("Error view" + state.err),
         );
       }
     });

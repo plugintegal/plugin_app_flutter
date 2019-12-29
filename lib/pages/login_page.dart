@@ -10,38 +10,22 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>{
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        brightness: Brightness.dark,
-        accentColor: Colors.deepOrangeAccent
-      ),
-      home: BlocProvider<UserBloc>(
-        create: (context) => UserBloc(),
-        child: LoginScreen()
-      )
-    );
-  }
-}
-
-
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginPageState extends State<LoginPage> {
   var _formKey = GlobalKey<FormState>();
   TextEditingController _etMember = TextEditingController();
   TextEditingController _etPassword = TextEditingController();
   var _defaultLoadingValue = 0.0;
+  UserBloc _userBloc;
+  bool _defaultHidePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _userBloc = BlocProvider.of<UserBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _userBloc = BlocProvider.of<UserBloc>(context);
     return Scaffold(
       body: BlocListener<UserBloc, UserState>(
         listener: (context, state){
@@ -57,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state){
-            return Container(
+            return SingleChildScrollView(
+              child: Container(
               padding: EdgeInsets.only(top: 64, left: 16, right: 16, bottom: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -65,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Text("Login",style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold,color: Colors.white)),
                   Container(
-                    margin: EdgeInsets.all(16),
+                    margin: EdgeInsets.only(top: 16),
                     child: Text("Masuk dengan id PLUGIN yang anda miliki. Jika anda tidak tahu atau belum memiliki id, hubungi pengurus PLUGIN segera"),
                   ),
                   Container(
@@ -99,14 +84,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextFormField(
                           controller: _etPassword,
                           decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.visibility),
+                            suffixIcon: IconButton(
+                              onPressed: _showPassword,
+                              icon: _defaultHidePassword ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+                            ),
                             prefixIcon: Icon(Icons.security),
                             labelText: "Password"
                             ),
                             validator: (value){
                               return value.length < 8? "Password tidak valid" : null;
                             },
-                            obscureText: true,
+                            obscureText: _defaultHidePassword,
+                            
                         ),
                         
                         Container(
@@ -139,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-            );
+            ),
+            ); 
           },
         ),
       ),
@@ -147,4 +137,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _success() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
+
+  void _showPassword(){
+    setState(() {
+      _defaultHidePassword = !_defaultHidePassword;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userBloc.close();
+  }
 }

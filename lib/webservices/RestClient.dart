@@ -16,7 +16,7 @@ class RestClient {
     }
     return _dio;
   }
-  static const profile = BASE_URL+"api/user/profile";
+  static const profile = BASE_URL+"api/user/data/profile";
   static const login = BASE_URL+"api/login";
   static const all_user = BASE_URL+"api/users";
   static const get_user = BASE_URL+"api/user/";

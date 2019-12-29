@@ -5,7 +5,6 @@ import 'package:plugin_app_flutter/bloc/user_bloc/user_event.dart';
 import 'package:plugin_app_flutter/bloc/user_bloc/user_state.dart';
 import 'package:plugin_app_flutter/models/user.dart';
 import 'package:plugin_app_flutter/pages/person_page.dart';
-import 'package:toast/toast.dart';
 
 class DashboardMenu extends StatefulWidget {
   @override
@@ -17,10 +16,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
 
   @override
   void initState() {
-        userBloc = BlocProvider.of<UserBloc>(context);
-    userBloc.add(FetchAllUserEvent());
-
     super.initState();
+    userBloc = BlocProvider.of<UserBloc>(context);
+    userBloc.add(FetchAllUserEvent());
   }
 
   @override
@@ -63,7 +61,6 @@ class _DashboardMenuState extends State<DashboardMenu> {
       );
 
   Widget _showError(String err) {
-    toast(err);
     return Center(
       child: Text(err.toString()),
     );
@@ -143,7 +140,9 @@ class _DashboardMenuState extends State<DashboardMenu> {
                             children: <Widget>[
                               IconButton(
                                 icon: Icon(Icons.hdr_strong),
-                                onPressed: () => this.toast("haha"),
+                                onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text("Something"),
+                                )),
                               ),
                             ],
                           ),
@@ -153,6 +152,4 @@ class _DashboardMenuState extends State<DashboardMenu> {
               ));
         }));
   }
-
-  void toast(String message) => Toast.show(message, context);
 }

@@ -35,6 +35,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState>_fetchAllUser() async* {
     yield UserLoadingState();
     try {
+      _api.options.headers["Authorization"] = await getToken();
+
       Response res = await _api.get(RestClient.all_user);
       WrappedListResponse wrappedListResponse =
           WrappedListResponse.fromJson(res.data);
@@ -66,6 +68,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       _api.options.headers["Authorization"] = await getToken();
       Response res = await _api.get(RestClient.profile);
+      
+      print(res.data);
       WrappedResponse wr = WrappedResponse.fromJson(res.data);
       if (wr.status) {
         User user = User.fromJson(wr.results);
@@ -104,6 +108,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       switch (e.runtimeType) {
         case DioError:
           final res = (e as DioError).response;
+          print("Error with status code ${res.statusCode} : ${res.statusMessage}");
           yield UserErrorState(err: "Tidak dapat masuk.");
           break;
         default:
