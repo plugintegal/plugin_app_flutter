@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_app_flutter/bloc/user_bloc/user_bloc.dart';
-import 'package:plugin_app_flutter/contracts/main_contract.dart';
 import 'package:plugin_app_flutter/pages/profile_page.dart';
-import 'package:plugin_app_flutter/presenters/main_presenter.dart';
 import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:plugin_app_flutter/pages/login_page.dart';
@@ -18,8 +16,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> implements MainView{
-  MainPresenter _presenter;
+class _MainPageState extends State<MainPage>{
   int _selectedBottomNavIndex = 0;
   PageStorageBucket bucket = PageStorageBucket();
   List<Widget> menus;
@@ -44,7 +41,6 @@ class _MainPageState extends State<MainPage> implements MainView{
       if(it){ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));}
       return;
     });
-    _presenter = MainPresenter(this);
     menus = [
     DashboardMenu(),
     EventMenu()
@@ -144,12 +140,7 @@ class _MainPageState extends State<MainPage> implements MainView{
   }
 
 
-  @override
   void toast(String message) => Toast.show(message, context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
 
-  @override
-  void dispose() {
-    super.dispose();
-    _presenter.detach();
-  }
+
 }

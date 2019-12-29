@@ -12,80 +12,89 @@ class DashboardMenu extends StatefulWidget {
   _DashboardMenuState createState() => _DashboardMenuState();
 }
 
-class _DashboardMenuState extends State<DashboardMenu>{
+class _DashboardMenuState extends State<DashboardMenu> {
   UserBloc userBloc;
 
   @override
   void initState() {
-    super.initState();
-    userBloc = BlocProvider.of<UserBloc>(context);
+        userBloc = BlocProvider.of<UserBloc>(context);
     userBloc.add(FetchAllUserEvent());
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: BlocListener<UserBloc, UserState>(
-        listener: (context, state){
-          if(state is UserErrorState){
-            //show snackbar
-            Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(state.err.toString()),)
-            );
+        listener: (context, state) {
+          if (state is UserErrorState) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.err.toString()),
+            ));
           }
         },
         child: BlocBuilder<UserBloc, UserState>(
-        builder: (_, state){
-          if(state is UserInitState){
-            return _showLoading();
-          }else if (state is UserLoadingState){
-            return _showLoading();
-          }else if (state is UserLoadedState){
-            if(state.users.isEmpty){
-              return _showEmptyView();
+          builder: (_, state) {
+            if (state is UserInitState) {
+              print("inisial");
+              return _showLoading();
+            } else if (state is UserLoadingState) {
+              print("inisisis");
+              return _showLoading();
+            } else if (state is UserLoadedState) {
+              if (state.users.isEmpty) {
+                return _showEmptyView();
+              }
+              return userBuild(state.users);
+            } else if (state is UserErrorState) {
+              return _showError(state.err);
+            }else{
+              return Text("hoho");
             }
-            return userBuild(state.users);
-          }else if (state is UserErrorState){
-            return _showError(state.err);
-          }
-        },
-      ),
+          },
+        ),
       ),
     );
   }
 
-
   Widget _showLoading() => Center(
-    child: CircularProgressIndicator(),
-  );
+        child: CircularProgressIndicator(),
+      );
 
-  Widget _showError(String err){
+  Widget _showError(String err) {
     toast(err);
     return Center(
       child: Text(err.toString()),
     );
   }
 
-  Widget _showEmptyView(){
+  Widget _showEmptyView() {
     return Center(
       child: Text("Empty view"),
     );
   }
 
-  Widget userBuild(List<User> users){
-      return Column(
+  Widget userBuild(List<User> users) {
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: List.generate(users.length, (index) {
           return GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>PersonPage(person: users[index])));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PersonPage(person: users[index])));
               },
               child: Container(
-                margin: EdgeInsets.only(top: 2.0, bottom: 2.0, left: 8.0, right: 8.0),
+                margin: EdgeInsets.only(
+                    top: 2.0, bottom: 2.0, left: 8.0, right: 8.0),
                 child: Card(
                     elevation: 2.0,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 16.0, bottom: 16.0),
+                      padding: EdgeInsets.only(
+                          left: 8.0, right: 8.0, top: 16.0, bottom: 16.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -94,7 +103,8 @@ class _DashboardMenuState extends State<DashboardMenu>{
                             padding: EdgeInsets.symmetric(horizontal: 8.0),
                             child: CircleAvatar(
                               radius: 25.0,
-                              backgroundImage: NetworkImage("https://ih1.redbubble.net/image.526556262.0001/flat,1000x1000,075,f.u1.jpg"),
+                              backgroundImage: NetworkImage(
+                                  "https://ih1.redbubble.net/image.526556262.0001/flat,1000x1000,075,f.u1.jpg"),
                             ),
                           ),
                           Expanded(
@@ -103,8 +113,25 @@ class _DashboardMenuState extends State<DashboardMenu>{
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(users[index].name ?? "",style: Theme.of(context).textTheme.display1.copyWith(fontSize: 16.0,),),
-                                  Text(users[index].email ?? "",maxLines: 3,style: Theme.of(context).textTheme.body1.copyWith(fontSize: 16.0,color: Colors.grey,),
+                                  Text(
+                                    users[index].name ?? "",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .display1
+                                        .copyWith(
+                                          fontSize: 16.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    users[index].email ?? "",
+                                    maxLines: 3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .body1
+                                        .copyWith(
+                                          fontSize: 16.0,
+                                          color: Colors.grey,
+                                        ),
                                   ),
                                 ],
                               ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plugin_app_flutter/contracts/person_contract.dart';
 import 'package:plugin_app_flutter/models/user.dart';
-import 'package:plugin_app_flutter/presenters/person_presenter.dart';
 import 'package:toast/toast.dart';
 
 class PersonPage extends StatefulWidget {
@@ -12,8 +10,7 @@ class PersonPage extends StatefulWidget {
   _PersonPageState createState() => _PersonPageState();
 }
 
-class _PersonPageState extends State<PersonPage> implements PersonView{
-  PersonPresenter _presenter;
+class _PersonPageState extends State<PersonPage>{
   ScrollController _scrollController;
   bool _isCollapsed = false;
   String _title = "";
@@ -21,7 +18,6 @@ class _PersonPageState extends State<PersonPage> implements PersonView{
   @override
   void initState() {
     super.initState();
-    _presenter = PersonPresenter(this);
     _scrollController = ScrollController();
     _scrollController.addListener((){
       if (_scrollController.offset > 224 && !_scrollController.position.outOfRange) {
@@ -461,12 +457,5 @@ class _PersonPageState extends State<PersonPage> implements PersonView{
     );
   }
 
-  @override
   void toast(String message) => Toast.show(message, context);
-
-  @override
-  void dispose() {
-    super.dispose();
-    _presenter?.detach();
-  }
 }
