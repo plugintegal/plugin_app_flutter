@@ -35,10 +35,8 @@ class _DashboardMenuState extends State<DashboardMenu> {
         child: BlocBuilder<UserBloc, UserState>(
           builder: (_, state) {
             if (state is UserInitState) {
-              print("inisial");
               return _showLoading();
             } else if (state is UserLoadingState) {
-              print("inisisis");
               return _showLoading();
             } else if (state is UserLoadedState) {
               if (state.users.isEmpty) {

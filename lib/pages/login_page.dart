@@ -21,15 +21,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _userBloc = BlocProvider.of<UserBloc>(context);
+    _userBloc = UserBloc();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<UserBloc, UserState>(
+        bloc: _userBloc,
         listener: (context, state){
-          if(state is UserErrorState){
+          if(state is UserInitState){
+            _defaultLoadingValue = 0.0;          
+          }else if(state is UserErrorState){
             _defaultLoadingValue = 0.0;
             Scaffold.of(context).showSnackBar(SnackBar(content: Text(state.err.toString())));
           }else if (state is UserSingleLoadedState){
@@ -40,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         child: BlocBuilder<UserBloc, UserState>(
+          bloc: _userBloc,
           builder: (context, state){
             return SingleChildScrollView(
               child: Container(
@@ -107,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                               
                               textColor: Colors.white,
                               color: Colors.deepOrange,
-                              onPressed: (state is UserLoadingState) ? null :  () async {
+                              onPressed: (state is UserLoadingState) ? null :  () {
                                 if(state is UserLoadingState){
                                   return null;
                                 }else{
@@ -147,6 +151,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _userBloc.close();
+    _userBloc?.close();
   }
 }

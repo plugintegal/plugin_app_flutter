@@ -4,10 +4,22 @@ import 'package:plugin_app_flutter/bloc/user_bloc/user_bloc.dart';
 import 'package:plugin_app_flutter/bloc/user_bloc/user_event.dart';
 import 'package:plugin_app_flutter/bloc/user_bloc/user_state.dart';
 
-class ProfileMenu extends StatelessWidget {
+class ProfileMenu extends StatefulWidget {
+  @override
+  _ProfileMenuState createState() => _ProfileMenuState();
+}
+
+class _ProfileMenuState extends State<ProfileMenu> {
+  UserBloc userBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    userBloc = BlocProvider.of<UserBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     userBloc.add(FetchMyProfile());
     return BlocBuilder<UserBloc, UserState>(builder: (_, state) {
       if (state is UserInitState) {
@@ -187,5 +199,11 @@ class ProfileMenu extends StatelessWidget {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    userBloc?.close();
   }
 }

@@ -92,6 +92,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Stream<UserState> _login(String memberId, String password) async*{
     try{
+      print("Halo saya dieksekusi: $memberId");
       yield UserLoadingState();
       Response res = await _api.post(RestClient.login, data: {
         "member_id":memberId, "password": password
