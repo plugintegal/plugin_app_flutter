@@ -14,11 +14,10 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage>{
+class _MainPageState extends State<MainPage> {
   int _selectedBottomNavIndex = 0;
   PageStorageBucket bucket = PageStorageBucket();
   List<Widget> menus;
-
 
   Future<bool> _isNotLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,62 +30,63 @@ class _MainPageState extends State<MainPage>{
     prefs.clear();
   }
 
-
   @override
   void initState() {
     super.initState();
     _isNotLoggedIn().then((it) {
-      if(it){ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));}
+      if (it) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      }
       return;
     });
-    menus = [
-    DashboardMenu(),
-    EventMenu()
-  ];
+    menus = [DashboardMenu(), EventMenu()];
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserBloc>(
-      create: (context) => UserBloc(),
-      child: Scaffold(
+        create: (context) => UserBloc(),
+        child: Scaffold(
           body: Padding(
-            padding: EdgeInsets.only(top:16.0),
+            padding: EdgeInsets.only(top: 16.0),
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverFloatingBar(
                     floating: true,
                     leading: IconButton(
                       icon: Icon(Icons.dehaze),
-                      onPressed: (){
-                          showCupertinoModalPopup(
-                            context: context,                        
-                            builder: (BuildContext context) => CupertinoActionSheet(
-                              title: Text("Opsi"),
-                              cancelButton: CupertinoActionSheetAction(
-                                child: Text("Batal"),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                              actions: <Widget>[
-                                CupertinoActionSheetAction(
-                                  child: Text("Pengaturan"),
-                                  onPressed: (){
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                CupertinoActionSheetAction(
-                                  child: Text("Sign out"),
-                                  onPressed: (){
-                                    _logout();
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder: (context) => LoginPage()));
-                                  },
-                                ),
-                              ],
-                            )
-                        );
-                      
+                      onPressed: () {
+                        showCupertinoModalPopup(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoActionSheet(
+                                  title: Text("Opsi"),
+                                  cancelButton: CupertinoActionSheetAction(
+                                    child: Text("Batal"),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  actions: <Widget>[
+                                    CupertinoActionSheetAction(
+                                      child: Text("Pengaturan"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    CupertinoActionSheetAction(
+                                      child: Text("Sign out"),
+                                      onPressed: () {
+                                        _logout();
+                                        Navigator.pop(context);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()));
+                                      },
+                                    ),
+                                  ],
+                                ));
                       },
                     ),
                     title: TextField(
@@ -95,22 +95,25 @@ class _MainPageState extends State<MainPage>{
                     trailing: GestureDetector(
                       child: CircleAvatar(
                         backgroundColor: Colors.deepOrangeAccent,
-                        child: Text("P", style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          "P",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()));
                       },
-                    )
-                ),
-
+                    )),
                 SliverToBoxAdapter(
                   child: Container(
-                    margin: EdgeInsets.only(top: 16.0),
-                    child: PageStorage(
-                      child: menus[_selectedBottomNavIndex],
-                      bucket: bucket,
-                    )
-                  ),
+                      margin: EdgeInsets.only(top: 16.0),
+                      child: PageStorage(
+                        child: menus[_selectedBottomNavIndex],
+                        bucket: bucket,
+                      )),
                 )
               ],
             ),
@@ -118,22 +121,17 @@ class _MainPageState extends State<MainPage>{
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.group_work),
-                title: Text("Members")
-              ),
+                  icon: Icon(Icons.group_work), title: Text("Members")),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.event_note),
-                  title: Text("Events")
-              ),
+                  icon: Icon(Icons.event_note), title: Text("Events")),
             ],
             currentIndex: _selectedBottomNavIndex,
-            onTap: (i){
+            onTap: (i) {
               setState(() {
                 _selectedBottomNavIndex = i;
               });
             },
           ),
-          )
-    );
+        ));
   }
 }
