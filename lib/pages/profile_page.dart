@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_app_flutter/bloc/user_bloc/user_bloc.dart';
 import 'package:plugin_app_flutter/menus/profile_menu.dart';
+import 'package:plugin_app_flutter/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -38,7 +39,10 @@ class _ProfilePageState extends State<ProfilePage>{
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: (){
-                  print("FAB edit");
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => EditProfilePage()
+                  )
+                  );
                   },
                 child: Icon(Icons.create),
               ),

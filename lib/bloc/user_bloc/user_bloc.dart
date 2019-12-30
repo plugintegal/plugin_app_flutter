@@ -38,8 +38,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       _api.options.headers["Authorization"] = await getToken();
 
       Response res = await _api.get(RestClient.all_user);
-      WrappedListResponse wrappedListResponse =
-          WrappedListResponse.fromJson(res.data);
+      WrappedListResponse wrappedListResponse = WrappedListResponse.fromJson(res.data);
       if (wrappedListResponse.status) {
         var res = wrappedListResponse.results;
         List<User> users = List();
@@ -68,8 +67,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       _api.options.headers["Authorization"] = await getToken();
       Response res = await _api.get(RestClient.profile);
-      
-      print(res.data);
       WrappedResponse wr = WrappedResponse.fromJson(res.data);
       if (wr.status) {
         User user = User.fromJson(wr.results);
@@ -92,7 +89,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Stream<UserState> _login(String memberId, String password) async*{
     try{
-      print("Halo saya dieksekusi: $memberId");
       yield UserLoadingState();
       Response res = await _api.post(RestClient.login, data: {
         "member_id":memberId, "password": password
